@@ -30,10 +30,16 @@ func (es *ES) DeleteProfilePicture(superheroID string, position int64, deletedAt
 		return err
 	}
 
+	// Delete profile picture at specified position.
 	for i := 0; i < len(superhero.ProfilePictures); i++ {
 		if position == superhero.ProfilePictures[i].Position {
 			superhero.ProfilePictures = append(superhero.ProfilePictures[:i], superhero.ProfilePictures[i+1:]...)
 		}
+	}
+
+	// After deleting picture at specified position, all existing pictures positions need to be updated.
+	for i := 0; i < len(superhero.ProfilePictures); i++ {
+		superhero.ProfilePictures[i].Position = int64(i) + int64(1)
 	}
 
 	return updateProfilePics(es, sourceID, superhero.ProfilePictures, deletedAt)
