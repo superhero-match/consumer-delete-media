@@ -9,22 +9,16 @@ build:
 	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o bin/main cmd/consumer/main.go
 	chmod +x bin/main
 
-init:
-	dep init
-
-deps:
-	dep ensure -v
-
 dkb:
-	docker build -t consumer .
+	docker build -t consumer-delete-media .
 
 dkr:
-	docker run consumer
+	docker run consumer-delete-media
 
 launch: dkb dkr
 
 cr-log:
-	docker logs consumer -f
+	docker logs consumer-delete-media -f
 
 db-log:
 	docker logs db -f
@@ -41,7 +35,7 @@ rmi:
 clear: rmc rmi
 
 cr-ssh:
-	docker exec -it consumer /bin/bash
+	docker exec -it consumer-delete-media /bin/bash
 
 db-ssh:
 	docker exec -it db /bin/bash
