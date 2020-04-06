@@ -17,6 +17,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"go.uber.org/zap"
+	"time"
 
 	"github.com/superhero-match/consumer-delete-media/internal/consumer/model"
 	dbm "github.com/superhero-match/consumer-delete-media/internal/db/model"
@@ -31,8 +33,20 @@ func (r *Reader) Read() error {
 		m, err := r.Consumer.Consumer.FetchMessage(ctx)
 		fmt.Print("after FetchMessage")
 		if err != nil {
+			r.Logger.Error(
+				"failed to fetch message",
+				zap.String("err", err.Error()),
+				zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+			)
+
 			err = r.Consumer.Consumer.Close()
 			if err != nil {
+				r.Logger.Error(
+					"failed to close consumer",
+					zap.String("err", err.Error()),
+					zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+				)
+
 				return err
 			}
 
@@ -50,17 +64,24 @@ func (r *Reader) Read() error {
 
 		var pp model.ProfilePicture
 		if err := json.Unmarshal(m.Value, &pp); err != nil {
-			_ = r.Consumer.Consumer.Close()
+			r.Logger.Error(
+				"failed to unmarshal JSON to profile picture",
+				zap.String("err", err.Error()),
+				zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+			)
+
+			err = r.Consumer.Consumer.Close()
 			if err != nil {
-				fmt.Println("Unmarshal")
-				fmt.Println(err)
-				err = r.Consumer.Consumer.Close()
-				if err != nil {
-					return err
-				}
+				r.Logger.Error(
+					"failed to close consumer",
+					zap.String("err", err.Error()),
+					zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+				)
 
 				return err
 			}
+
+			return err
 		}
 
 		err = r.DB.DeleteProfilePicture(dbm.ProfilePicture{
@@ -69,10 +90,20 @@ func (r *Reader) Read() error {
 			DeletedAt:   pp.DeletedAt,
 		}, )
 		if err != nil {
-			fmt.Println("DB")
-			fmt.Println(err)
+			r.Logger.Error(
+				"failed to delete profile picture from database",
+				zap.String("err", err.Error()),
+				zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+			)
+
 			err = r.Consumer.Consumer.Close()
 			if err != nil {
+				r.Logger.Error(
+					"failed to close consumer",
+					zap.String("err", err.Error()),
+					zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+				)
+
 				return err
 			}
 
@@ -81,10 +112,20 @@ func (r *Reader) Read() error {
 
 		err = r.ES.DeleteProfilePicture(pp.SuperheroID, pp.Position, pp.DeletedAt)
 		if err != nil {
-			fmt.Println("ES")
-			fmt.Println(err)
+			r.Logger.Error(
+				"failed to delete profile picture in Elasticsearch",
+				zap.String("err", err.Error()),
+				zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+			)
+
 			err = r.Consumer.Consumer.Close()
 			if err != nil {
+				r.Logger.Error(
+					"failed to close consumer",
+					zap.String("err", err.Error()),
+					zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+				)
+
 				return err
 			}
 
@@ -96,10 +137,20 @@ func (r *Reader) Read() error {
 
 		err = r.Cache.DeleteSuperhero(keys)
 		if err != nil {
-			fmt.Println("Cache")
-			fmt.Println(err)
+			r.Logger.Error(
+				"failed to delete profile picture from cache",
+				zap.String("err", err.Error()),
+				zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+			)
+
 			err = r.Consumer.Consumer.Close()
 			if err != nil {
+				r.Logger.Error(
+					"failed to close consumer",
+					zap.String("err", err.Error()),
+					zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+				)
+
 				return err
 			}
 
@@ -108,8 +159,20 @@ func (r *Reader) Read() error {
 
 		err = r.Consumer.Consumer.CommitMessages(ctx, m)
 		if err != nil {
+			r.Logger.Error(
+				"failed to commit message",
+				zap.String("err", err.Error()),
+				zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+			)
+
 			err = r.Consumer.Consumer.Close()
 			if err != nil {
+				r.Logger.Error(
+					"failed to close consumer",
+					zap.String("err", err.Error()),
+					zap.String("time", time.Now().UTC().Format(r.TimeFormat)),
+				)
+
 				return err
 			}
 
