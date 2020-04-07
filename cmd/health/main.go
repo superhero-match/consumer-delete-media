@@ -11,13 +11,28 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package config
+package main
 
-// DB holds the configuration values for the database.
-type DB struct {
-	Host     string `env:"DB_HOST" default:"192.168.0.101"`
-	Port     int    `env:"DB_PORT" default:"3306"`
-	User     string `env:"DB_USER" default:"dev"`
-	Password string `env:"DB_PASSWORD" default:"password"`
-	Name     string `env:"DB_NAME" default:"municipality"`
+import (
+	"github.com/superhero-match/consumer-delete-media/cmd/health/controller"
+	"github.com/superhero-match/consumer-delete-media/internal/config"
+)
+
+func main() {
+	cfg, err := config.NewConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	ctrl, err := controller.NewController()
+	if err != nil {
+		panic(err)
+	}
+
+	r := ctrl.RegisterRoutes()
+
+	err = r.Run(cfg.Health.Port)
+	if err != nil {
+		panic(err)
+	}
 }
