@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="440c2be3-a5a5-4de3-931e-343644fd15a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/consumer/reader/read.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/consumer/reader/read.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/consumer/reader/reader.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/consumer/reader/reader.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/config/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/db.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +57,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmd/consumer" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -71,7 +67,18 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ACER\go\src\github.com\superhero-match\consumer-delete-media\cmd\consumer" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ACER\go\src\github.com\superhero-match\consumer-delete-media" />
+      <recent name="C:\Users\ACER\go\src\github.com\superhero-match\consumer-delete-media\cmd" />
+      <recent name="C:\Users\ACER\go\src\github.com\superhero-match\consumer-delete-media\cmd\health" />
+      <recent name="C:\Users\ACER\go\src\github.com\superhero-match\consumer-delete-media\internal\config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.go build github.com/superhero-match/consumer-delete-media/cmd/consumer">
     <configuration name="go build github.com/superhero-match/consumer-delete-media/cmd/consumer" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="consumer-delete-media" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -81,9 +88,19 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="go build github.com/superhero-match/consumer-delete-media/cmd/health" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="consumer-delete-media" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/cmd/health/main.go" />
+      <package value="github.com/superhero-match/consumer-delete-media/cmd/health" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build github.com/superhero-match/consumer-delete-media/cmd/consumer" />
+        <item itemvalue="Go Build.go build github.com/superhero-match/consumer-delete-media/cmd/health" />
       </list>
     </recent_temporary>
   </component>
@@ -99,21 +116,21 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1585233738059" />
-    <state width="1323" height="373" key="GridCell.Tab.0.bottom" timestamp="1586159724074">
+    <state width="1323" height="242" key="GridCell.Tab.0.bottom" timestamp="1586242305433">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="373" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586159724074" />
-    <state width="1323" height="373" key="GridCell.Tab.0.center" timestamp="1586159724073">
+    <state width="1323" height="242" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586242305433" />
+    <state width="1323" height="242" key="GridCell.Tab.0.center" timestamp="1586242305432">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="373" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1586159724073" />
-    <state width="1323" height="373" key="GridCell.Tab.0.left" timestamp="1586159724073">
+    <state width="1323" height="242" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1586242305432" />
+    <state width="1323" height="242" key="GridCell.Tab.0.left" timestamp="1586242305431">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="373" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1586159724073" />
-    <state width="1323" height="373" key="GridCell.Tab.0.right" timestamp="1586159724074">
+    <state width="1323" height="242" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1586242305431" />
+    <state width="1323" height="242" key="GridCell.Tab.0.right" timestamp="1586242305433">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="373" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1586159724074" />
+    <state width="1323" height="242" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1586242305433" />
   </component>
 </project>

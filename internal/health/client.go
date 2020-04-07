@@ -11,13 +11,23 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package config
+package health
 
-// DB holds the configuration values for the database.
-type DB struct {
-	Host     string `env:"DB_HOST" default:"192.168.0.101"`
-	Port     int    `env:"DB_PORT" default:"3306"`
-	User     string `env:"DB_USER" default:"dev"`
-	Password string `env:"DB_PASSWORD" default:"password"`
-	Name     string `env:"DB_NAME" default:"municipality"`
+import (
+	"fmt"
+	"github.com/superhero-match/consumer-delete-media/internal/config"
+)
+
+// Client holds health client related data.
+type Client struct {
+	HealthServerURL string
+	ContentType     string
+}
+
+// NewClient return new health client.
+func NewClient(cfg *config.Config) *Client {
+	return &Client{
+		HealthServerURL: fmt.Sprintf("http://%s%s%s", cfg.Health.Address, cfg.Health.Port, cfg.Health.ShutdownEndpoint),
+		ContentType:     cfg.Health.ContentType,
+	}
 }
