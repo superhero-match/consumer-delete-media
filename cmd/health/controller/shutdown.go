@@ -19,8 +19,8 @@ import (
 	"os"
 )
 
-// Shutdown is called and panics when API server panics so that Health controller would not be responding and
-// loadbalancer would mark API server un-healthy and spin-up a new instance of API server.
+// Shutdown is called and panics when consumer panics so that Health controller would not be responding and
+// loadbalancer would mark consumer un-healthy and spin-up a new instance of consumer.
 func (ctl *Controller) Shutdown(c *gin.Context) {
 	c.Status(http.StatusOK)
 	os.Exit(2)

@@ -13,7 +13,7 @@ dkb:
 	docker build -t consumer-delete-media .
 
 dkr:
-	docker run consumer-delete-media
+	docker run -p "8000:8000" consumer-delete-media
 
 launch: dkb dkr
 

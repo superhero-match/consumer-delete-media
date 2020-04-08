@@ -17,8 +17,8 @@ import (
 	"net/http"
 )
 
-// ShutdownHealthServer sends shutdown signal to health server. This shutdown signal is sent only when API server
-// is panicking and is about to be shutdown to notify loadbalancer that API is un-healthy.
+// ShutdownHealthServer sends shutdown signal to health server. This shutdown signal is sent only when consumer
+// is panicking and is about to be shutdown to notify loadbalancer that consumer is un-healthy.
 func (c *Client) ShutdownHealthServer () error {
 	_, err := http.Post(c.HealthServerURL, c.ContentType, nil)
 	if err != nil {
