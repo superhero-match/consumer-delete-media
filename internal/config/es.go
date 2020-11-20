@@ -15,8 +15,8 @@ package config
 
 // ES holds the configuration values for the Elasticsearch client.
 type ES struct {
-	Host    string `env:"ES_HOST" default:"192.168.0.105"`
-	Port    string `env:"ES_PORT" default:"9200"`
-	Cluster string `env:"ES_CLUSTER" default:"superheromatch"`
-	Index   string `env:"ES_INDEX" default:"superhero"`
+	Host    string `env:"ES_HOST" yaml:"host" default:"192.168.0.64"`
+	Port    string `env:"ES_PORT" yaml:"port" default:"9200"`
+	Cluster string `env:"ES_CLUSTER" yaml:"cluster" default:"superheromatch"`
+	Index   string `env:"ES_INDEX" yaml:"index" default:"superhero"`
 }
