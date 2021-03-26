@@ -58,4 +58,4 @@ USER appuser
 EXPOSE 8000 8000
 
 # Command to run the executables.
-CMD ["sh", "-c", "( ./health & ) && ./main"]
+CMD ["sh", "-c", "./main"]
