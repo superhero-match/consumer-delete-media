@@ -23,8 +23,7 @@ import (
 	elastic "github.com/olivere/elastic/v7"
 )
 
-// CheckEmailExists checks if document of type superhero in superheros index exists
-// and if so, if the superhero is blocked.
+// GetSuperhero returns Superhero by id.
 func (e *es) GetSuperhero(superheroID string) (s *model.Superhero, err error) {
 	q := elastic.NewTermQuery("superhero_id", superheroID)
 
