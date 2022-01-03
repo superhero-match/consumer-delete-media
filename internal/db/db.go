@@ -18,19 +18,25 @@ import (
 	"fmt"
 
 	"github.com/superhero-match/consumer-delete-media/internal/config"
+	"github.com/superhero-match/consumer-delete-media/internal/db/model"
 
 	_ "github.com/go-sql-driver/mysql" // MySQL driver.
 )
 
-// DB holds the database connection.
-type DB struct {
-	DB                          *sql.DB
+// DB interface defines database methods.
+type DB interface {
+	DeleteProfilePicture(pp model.ProfilePicture) error
+}
+
+// db holds the database connection.
+type db struct {
+	DB                       *sql.DB
 	stmtDeleteProfilePicture *sql.Stmt
 }
 
 // NewDB returns database.
-func NewDB(cfg *config.Config) (dbs *DB, err error) {
-	db, err := sql.Open(
+func NewDB(cfg *config.Config) (d DB, err error) {
+	dbs, err := sql.Open(
 		"mysql",
 		fmt.Sprintf(
 			"%s:%s@tcp(%s:%d)/%s",
@@ -45,13 +51,13 @@ func NewDB(cfg *config.Config) (dbs *DB, err error) {
 		return nil, err
 	}
 
-	stmtIns, err := db.Prepare(`call delete_profile_picture(?,?,?)`)
+	stmtIns, err := dbs.Prepare(`call delete_profile_picture(?,?,?)`)
 	if err != nil {
 		return nil, err
 	}
 
-	return &DB{
-		DB:                          db,
+	return &db{
+		DB:                       dbs,
 		stmtDeleteProfilePicture: stmtIns,
 	}, nil
 }

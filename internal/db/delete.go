@@ -18,7 +18,7 @@ import (
 )
 
 // DeleteProfilePicture saves new profile picture.
-func(db *DB) DeleteProfilePicture (pp model.ProfilePicture) error {
+func (db *db) DeleteProfilePicture(pp model.ProfilePicture) error {
 	_, err := db.stmtDeleteProfilePicture.Exec(
 		pp.SuperheroID,
 		pp.Position,
@@ -30,4 +30,3 @@ func(db *DB) DeleteProfilePicture (pp model.ProfilePicture) error {
 
 	return nil
 }
-
