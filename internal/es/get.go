@@ -20,20 +20,20 @@ import (
 
 	"github.com/superhero-match/consumer-delete-media/internal/es/model"
 
-	"github.com/olivere/elastic/v7"
+	elastic "github.com/olivere/elastic/v7"
 )
 
 // CheckEmailExists checks if document of type superhero in superheros index exists
 // and if so, if the superhero is blocked.
-func (es *ES) GetSuperhero(superheroID string) (s *model.Superhero, err error) {
+func (e *es) GetSuperhero(superheroID string) (s *model.Superhero, err error) {
 	q := elastic.NewTermQuery("superhero_id", superheroID)
 
 	fmt.Println()
 	fmt.Printf("%+v", q)
 	fmt.Println()
 
-	searchResult, err := es.Client.Search().
-		Index(es.Index).
+	searchResult, err := e.Client.Search().
+		Index(e.Index).
 		Query(q).
 		Pretty(true).
 		Do(context.Background())

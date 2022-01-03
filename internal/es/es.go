@@ -15,14 +15,22 @@ package es
 
 import (
 	"fmt"
+	"github.com/superhero-match/consumer-delete-media/internal/es/model"
 
 	elastic "github.com/olivere/elastic/v7"
 	"github.com/superhero-match/consumer-delete-media/internal/config"
 )
 
-// ES holds all the Elasticsearch client relevant data.
-type ES struct {
-	Client *elastic.Client
+// ES interface defines Elasticsearch methods.
+type ES interface {
+	DeleteProfilePicture(superheroID string, position int64, deletedAt string) error
+	GetSuperhero(superheroID string) (s *model.Superhero, err error)
+	GetDocumentID(superheroID string) (string, error)
+}
+
+// es holds all the Elasticsearch client relevant data.
+type es struct {
+	Client  *elastic.Client
 	Host    string
 	Port    string
 	Cluster string
@@ -30,7 +38,7 @@ type ES struct {
 }
 
 // NewES creates a client and connects to it.
-func NewES(cfg *config.Config) (es *ES, err error) {
+func NewES(cfg *config.Config) (e ES, err error) {
 	client, err := elastic.NewClient(
 		elastic.SetURL(
 			fmt.Sprintf(
@@ -44,8 +52,8 @@ func NewES(cfg *config.Config) (es *ES, err error) {
 		return nil, err
 	}
 
-	return &ES{
-		Client: client,
+	return &es{
+		Client:  client,
 		Host:    cfg.ES.Host,
 		Port:    cfg.ES.Port,
 		Cluster: cfg.ES.Cluster,

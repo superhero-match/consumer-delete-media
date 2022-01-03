@@ -19,13 +19,13 @@ import (
 )
 
 // DeleteProfilePicture deletes profile picture.
-func (es *ES) DeleteProfilePicture(superheroID string, position int64, deletedAt string) error {
-	superhero, err := es.GetSuperhero(superheroID)
+func (e *es) DeleteProfilePicture(superheroID string, position int64, deletedAt string) error {
+	superhero, err := e.GetSuperhero(superheroID)
 	if err != nil {
 		return err
 	}
 
-	sourceID, err := es.GetDocumentID(superheroID)
+	sourceID, err := e.GetDocumentID(superheroID)
 	if err != nil {
 		return err
 	}
@@ -42,12 +42,12 @@ func (es *ES) DeleteProfilePicture(superheroID string, position int64, deletedAt
 		superhero.ProfilePictures[i].Position = int64(i) + int64(1)
 	}
 
-	return updateProfilePics(es, sourceID, superhero.ProfilePictures, deletedAt)
+	return updateProfilePics(e, sourceID, superhero.ProfilePictures, deletedAt)
 }
 
-func updateProfilePics(es *ES, sourceID string, pps []model.ProfilePicture, deletedAt string) error {
-	_, err := es.Client.Update().
-		Index(es.Index).
+func updateProfilePics(e *es, sourceID string, pps []model.ProfilePicture, deletedAt string) error {
+	_, err := e.Client.Update().
+		Index(e.Index).
 		Id(sourceID).
 		Doc(map[string]interface{}{
 			"profile_pics": pps,
