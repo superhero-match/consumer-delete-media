@@ -88,7 +88,7 @@ func (r *Reader) Read() error {
 			SuperheroID: pp.SuperheroID,
 			Position:    pp.Position,
 			DeletedAt:   pp.DeletedAt,
-		}, )
+		})
 		if err != nil {
 			r.Logger.Error(
 				"failed to delete profile picture from database",
@@ -133,7 +133,7 @@ func (r *Reader) Read() error {
 		}
 
 		keys := make([]string, 0)
-		keys = append(keys, fmt.Sprintf(r.Cache.SuggestionKeyFormat, pp.SuperheroID))
+		keys = append(keys, fmt.Sprintf(r.SuggestionKeyFormat, pp.SuperheroID))
 
 		err = r.Cache.DeleteSuperhero(keys)
 		if err != nil {
