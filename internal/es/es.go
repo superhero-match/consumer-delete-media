@@ -15,10 +15,11 @@ package es
 
 import (
 	"fmt"
-	"github.com/superhero-match/consumer-delete-media/internal/es/model"
 
 	elastic "github.com/olivere/elastic/v7"
+
 	"github.com/superhero-match/consumer-delete-media/internal/config"
+	"github.com/superhero-match/consumer-delete-media/internal/es/model"
 )
 
 // ES interface defines Elasticsearch methods.

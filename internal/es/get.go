@@ -18,9 +18,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/superhero-match/consumer-delete-media/internal/es/model"
-
 	elastic "github.com/olivere/elastic/v7"
+
+	"github.com/superhero-match/consumer-delete-media/internal/es/model"
 )
 
 // GetSuperhero returns Superhero by id.
