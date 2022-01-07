@@ -17,15 +17,17 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"go.uber.org/zap"
 	"time"
+
+	"go.uber.org/zap"
 
 	"github.com/superhero-match/consumer-delete-media/internal/consumer/model"
 	dbm "github.com/superhero-match/consumer-delete-media/internal/db/model"
 )
 
-// Read consumes the Kafka topic and stores the newly registered superhero to DB and Elasticsearch.
-func (r *Reader) Read() error {
+// Read consumes the Kafka topic, deletes user profile image from the database, Elasticsearch
+// and deletes Superhero from cache.
+func (r *reader) Read() error {
 	ctx := context.Background()
 
 	for {
