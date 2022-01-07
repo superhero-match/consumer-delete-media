@@ -17,7 +17,7 @@ import (
 	"github.com/superhero-match/consumer-delete-media/internal/db/model"
 )
 
-// DeleteProfilePicture saves new profile picture.
+// DeleteProfilePicture deletes profile picture.
 func (db *db) DeleteProfilePicture(pp model.ProfilePicture) error {
 	_, err := db.stmtDeleteProfilePicture.Exec(
 		pp.SuperheroID,
